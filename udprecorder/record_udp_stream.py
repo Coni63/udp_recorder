@@ -12,10 +12,34 @@ from .utils import open_socket
 
 
 def _signal_handler(signal, frame):
+    """
+    A signal handler function that is called when a specific signal is received.
+    This is used when the signal of end of stream is received
+
+    Args:
+        signal: The signal number that triggered the handler.
+        frame: The current execution frame.
+
+    Raises:
+        SystemExit: If the signal is received, this exception is raised with the message "Socket is closed".
+    """
     raise SystemExit("Scoket is closed")
 
 
 def _record_data(s, f, max_num_packets=1e9, max_seconds=1e9, buffer_size=65536):
+    """
+    Records data received from a socket and saves it to a file.
+
+    Args:
+        s (socket): The socket object to receive data from.
+        f (file): The file object to write the received data to.
+        max_num_packets (int, optional): The maximum number of packets to receive. Default is 1e9.
+        max_seconds (int, optional): The maximum number of seconds to receive data. Default is 1e9.
+        buffer_size (int, optional): The size of the buffer for receiving data. Default is 65536.
+
+    Returns:
+        None
+    """
     start_time = time.time()
     previous_time = start_time
     num_packets = 0
@@ -39,6 +63,19 @@ def _record_data(s, f, max_num_packets=1e9, max_seconds=1e9, buffer_size=65536):
 
 
 def _prepare_socket(s: socket.socket, addr: tuple):
+    """
+    Binds the given socket to the specified address and sets it to blocking mode.
+
+    Args:
+        s (socket.socket): The socket object to bind.
+        addr (tuple): The address to bind the socket to.
+
+    Raises:
+        OSError: If the bind operation fails.
+
+    Returns:
+        None
+    """
     try:
         s.bind(addr)
         print(f"Socket bind complete on port {addr}")
@@ -50,7 +87,20 @@ def _prepare_socket(s: socket.socket, addr: tuple):
     s.setblocking(True)
 
 
-def main(file_name: str, addr: tuple, buffer_size=65536, max_num_packets=1e9, max_seconds=1e9):
+def record(file_name: str, addr: tuple, buffer_size=65536, max_num_packets=1e9, max_seconds=1e9):
+    """
+    Records data from a specified address and saves it to a file or BytesIO object.
+
+    Parameters:
+        file_name (str): The name of the file to save the recorded data to.
+        addr (tuple): The address to record data from.
+        buffer_size (int, optional): The size of the buffer used for reading data. Defaults to 65536.
+        max_num_packets (float, optional): The maximum number of packets to record. Defaults to 1e9.
+        max_seconds (float, optional): The maximum number of seconds to record. Defaults to 1e9.
+
+    Returns:
+        None
+    """
     signal.signal(signal.SIGINT, _signal_handler)
     with open_socket() as s:
         _prepare_socket(s, addr)
@@ -89,4 +139,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     addr = (args.server, args.port)
-    main(file_name=args.file, addr=addr, buffer_size=args.buffer, max_num_packets=args.count, max_seconds=args.seconds)
+    record(
+        file_name=args.file,
+        addr=addr,
+        buffer_size=args.buffer,
+        max_num_packets=args.count,
+        max_seconds=args.seconds,
+    )

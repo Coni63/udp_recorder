@@ -5,7 +5,7 @@ import unittest
 from io import BytesIO
 from unittest.mock import patch
 
-from recorder.replay_udp_stream import main
+from udprecorder.replay_udp_stream import replay
 
 
 class TestRecord(unittest.TestCase):
@@ -25,5 +25,5 @@ class TestRecord(unittest.TestCase):
 
         with patch("socket.socket.sendto") as sender_mock:
             sender_mock.return_value = 1
-            main(fake_file, self.addr)
+            replay(fake_file, self.addr)
             self.assertEqual(sender_mock.call_count, len(self.msg_list))

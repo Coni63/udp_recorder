@@ -7,7 +7,7 @@ import time
 import unittest
 from io import BytesIO
 
-from recorder.record_udp_stream import main
+from udprecorder.record_udp_stream import record
 
 
 class TestRecord(unittest.TestCase):
@@ -33,7 +33,7 @@ class TestRecord(unittest.TestCase):
         threading.Thread(target=emitter).start()
 
         fake_file = BytesIO()
-        main(fake_file, self.addr, max_num_packets=len(self.msg_list))
+        record(fake_file, self.addr, max_num_packets=len(self.msg_list))
         fake_file.seek(0)
 
         self.assertEqual(fake_file.getbuffer().nbytes, 59)

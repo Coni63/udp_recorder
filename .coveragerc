@@ -5,7 +5,7 @@
 [run]
 branch = True
 source =
-    src/
+    udprecorder/
     tests/
 omit =
     *\__init__.py
