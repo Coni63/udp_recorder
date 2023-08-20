@@ -111,7 +111,23 @@ def record(file_name: str, addr: tuple, buffer_size=65536, max_num_packets=1e9, 
                 _record_data(s, f, max_num_packets, max_seconds, buffer_size)
 
 
-if __name__ == "__main__":
+def main():
+    """
+    Parse inputs to start the recording of UPD packets
+
+    :param server: Host to listen to (default: "127.0.0.1")
+    :type server: str
+    :param port: Port to listen to (default: 1234)
+    :type port: int
+    :param file: File to write data to (default: "udp.bin")
+    :type file: str
+    :param buffer: Host target (default: 65536)
+    :type buffer: int
+    :param count: Stop capture after x packets (default: 1000000000)
+    :type count: int
+    :param seconds: Stop capture after x seconds (default: 1000000000)
+    :type seconds: int
+    """
     parser = argparse.ArgumentParser(
         description="Capture UDP packets for further analysis and playback",
     )
@@ -146,3 +162,7 @@ if __name__ == "__main__":
         max_num_packets=args.count,
         max_seconds=args.seconds,
     )
+
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "udprecorder"
-version = "0.1.0"
+version = "0.1.1"
 description = "Record and replay UDP streams"
 authors = ["Nicolas M."]
 readme = "README.md"
@@ -16,3 +16,7 @@ pre-commit = "^3.3.3"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+record_udp = "udprecorder.record_udp_stream:main"
+replay_udp = "udprecorder.replay_udp_stream:main"

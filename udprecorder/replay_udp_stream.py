@@ -56,9 +56,20 @@ def replay(file_name: str, addr: tuple):
                 _replay_data(s, f, addr)
 
 
-if __name__ == "__main__":
+def main():
+    """
+    This function is the entry point of the program to replay a saved stream
+
+    It parses command line arguments and sends a UDP file captured previously using record_udp_stream.py.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+    """
     parser = argparse.ArgumentParser(
-        description="Send UDP file captured previously using UDPReceive.py",
+        description="Replay UDP stream from a file captured previously using the recorder",
     )
     parser.add_argument("-p", "--port", help="Port to listen", required=False, type=int, default=1234)
     parser.add_argument("-f", "--file", help="File to send", required=False, type=str, default="udp.bin")
@@ -68,3 +79,7 @@ if __name__ == "__main__":
 
     addr = (args.server, args.port)
     replay(args.file, addr)
+
+
+if __name__ == "__main__":
+    main()
