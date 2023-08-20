@@ -15,8 +15,18 @@ pip install udprecorder
 ### Commandline
 
 ```bash
-python
+record_udp -p 1234 -s 127.0.0.1 -f myfile.bin -b 1024 -c 9999 -s 3600
+replay_udp -p 1234 -s 127.0.0.1 -f myfile.bin
 ```
+
+|    |          | description                  | required | type | default    |
+|----|----------|------------------------------|----------|------|------------|
+| -p | --port   | Port to listen/replay to     | False    | int  | 1234       |
+| -s | --server | Host to listen/replay to     | False    | str  | 127.0.0.1  |
+| -f | --file   | File to save/read the stream | False    | str  | udp.bin    |
+| -b | --buffer | Buffer size limit            | False    | int  | 65536      |
+| -c | --count  | number of message to read    | False    | int  | 1000000000 |
+| -t | --time   | time limit to record         | False    | int  | 1000000000 |
 
 ### In scripts
 
@@ -41,10 +51,17 @@ udprecorder.replay(
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. A list of future changes is available just below. Feel free to contribute on those points.
 
 Please make sure to update tests as appropriate.
+
+## Future updates
+
+- Add parameter to adjust the replay speed
+- better handling of errors
+- Add pipeline for tests / pre-commits
+- Add badges on the readme based on build
+- Add tox to tests multiples environments
 
 ## License
 
