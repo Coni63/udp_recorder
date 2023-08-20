@@ -131,7 +131,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Capture UDP packets for further analysis and playback",
     )
-    parser.add_argument("-p", "--server", help="Host to listen to", required=False, type=str, default="127.0.0.1")
+    parser.add_argument("-s", "--server", help="Host to listen to", required=False, type=str, default="127.0.0.1")
     parser.add_argument("-p", "--port", help="Port to listen to", required=False, type=int, default=1234)
     parser.add_argument("-f", "--file", help="File to write data to", required=False, type=str, default="udp.bin")
     parser.add_argument("-b", "--buffer", help="Host target", required=False, type=int, default=65536)
@@ -144,8 +144,8 @@ def main():
         default=1000000000,
     )
     parser.add_argument(
-        "-s",
-        "--seconds",
+        "-t",
+        "--time",
         help="Stop capture after x seconds",
         required=False,
         type=int,

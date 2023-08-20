@@ -71,9 +71,9 @@ def main():
     parser = argparse.ArgumentParser(
         description="Replay UDP stream from a file captured previously using the recorder",
     )
+    parser.add_argument("-s", "--server", help="Host target", required=False, type=str, default="127.0.0.1")
     parser.add_argument("-p", "--port", help="Port to listen", required=False, type=int, default=1234)
     parser.add_argument("-f", "--file", help="File to send", required=False, type=str, default="udp.bin")
-    parser.add_argument("-s", "--server", help="Host target", required=False, type=str, default="127.0.0.1")
 
     args = parser.parse_args()
 
