@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "udprecorder"
-version = "0.1.4"
+version = "0.1.5"
 description = "Record and replay UDP streams"
 authors = ["Nicolas M."]
 readme = "README.md"
